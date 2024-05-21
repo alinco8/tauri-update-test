@@ -1,0 +1,35 @@
+{
+    "build": {
+        "beforeDevCommand": "bun run dev",
+        "beforeBuildCommand": "bun run build",
+        "frontendDist": "../dist",
+        "devUrl": "http://localhost:1420"
+    },
+    "bundle": {
+        "active": true,
+        "targets": ["dmg", "updater", "app"],
+        "icon": ["icons/32x32.png", "icons/128x128.png", "icons/128x128@2x.png", "icons/icon.icns", "icons/icon.ico"]
+    },
+    "productName": "update-test",
+    "version": "0.0.1",
+    "identifier": "jp.alinco8.update-test",
+    "plugins": {
+        "updater": {
+            "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDk3Q0MxOTgwQjhFQzE5NjIKUldSaUdleTRnQm5NbDM2am9KM09vaUFZL1lNbzZXQVl4QVd5OUFwTDF2VzgzMDV5VDc3WHB3dGIK",
+            "endpoints": ["https://github.com/"]
+        }
+    },
+    "app": {
+        "security": {
+            "csp": null
+        },
+        "windows": [
+            {
+                "title": "update-test",
+                "width": 800,
+                "height": 600,
+                "label": "main"
+            }
+        ]
+    }
+}
