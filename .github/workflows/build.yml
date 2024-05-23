@@ -5,8 +5,7 @@ on:
             - main # 簡単のため main に変更
 jobs:
     publish-tauri:
-        permissions:
-            contents: write
+        permissions: write-all
         strategy:
             fail-fast: false
             matrix:
