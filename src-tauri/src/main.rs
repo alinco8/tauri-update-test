@@ -16,10 +16,16 @@ fn main() {
         .plugin(tauri_plugin_updater::Builder::new().build())
         .invoke_handler(tauri::generate_handler![greet])
         .setup(|app| {
-            app.app_handle()
-                .get_webview_window("main")
-                .unwrap()
-                .open_devtools();
+            let handle = app.handle();
+            handle.get_webview_window("main").unwrap().open_devtools();
+
+            // tauri::async_runtime::spawn(async move {
+            //     if let Some(update)= handle.updater_builder().endpoints(vec![""]).build().unwrap().check().await.unwrap() {
+            //         update.download(|a|{}, ||{
+            //             update.install(bytes)
+            //         })
+            //     }
+            // });
 
             Ok(())
         })

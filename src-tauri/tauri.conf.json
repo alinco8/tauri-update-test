@@ -11,12 +11,12 @@
         "icon": ["icons/32x32.png", "icons/128x128.png", "icons/128x128@2x.png", "icons/icon.icns", "icons/icon.ico"]
     },
     "productName": "update-test",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "identifier": "jp.alinco8.update-test",
     "plugins": {
         "updater": {
             "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDk3Q0MxOTgwQjhFQzE5NjIKUldSaUdleTRnQm5NbDM2am9KM09vaUFZL1lNbzZXQVl4QVd5OUFwTDF2VzgzMDV5VDc3WHB3dGIK",
-            "endpoints": ["https://github.com/"]
+            "endpoints": ["https://gist.githubusercontent.com/alinco8/2512d41f280a7852f3a15a0031074f5a/raw/"]
         }
     },
     "app": {

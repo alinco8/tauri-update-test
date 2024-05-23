@@ -32,8 +32,8 @@ jobs:
                   releaseBody: 'See the assets to download this version and install.'
                   releaseDraft: true
                   prerelease: false
-            - name: update-gist
-              env:
-                  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-              run: |
-                  gh api --method GET /repos/alinco8/tauri-update-test/releases/latest | jq ".tag_name" | xargs -I{} curl -L "https://github.com/alinco8/tauri-update-test/releases/download/{}/latest.json" | jq -sRr | gh gist edit 2512d41f280a7852f3a15a0031074f5a - -f tauri-update-test.latest.json
+            # - name: update-gist
+            #   env:
+            #       GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+            #   run: |
+            #       gh api --method GET /repos/alinco8/tauri-update-test/releases/latest | jq ".tag_name" | xargs -I{} curl -L "https://github.com/alinco8/tauri-update-test/releases/download/{}/latest.json" | jq -sRr | gh gist edit 2512d41f280a7852f3a15a0031074f5a - -f tauri-update-test.latest.json
