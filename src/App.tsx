@@ -1,13 +1,16 @@
+import { getVersion } from '@tauri-apps/api/app';
 import { relaunch } from '@tauri-apps/plugin-process';
 import { check, type Update } from '@tauri-apps/plugin-updater';
 import { useEffect, useState } from 'react';
 
 export const App = () => {
     const [update, setUpdate] = useState<Update | null>(null);
+    const [version, setVersion] = useState<string | null>(null);
 
     useEffect(() => {
         (async () => {
             setUpdate(await check());
+            setVersion(await getVersion());
         })();
     }, []);
 
@@ -31,7 +34,10 @@ export const App = () => {
                     </button>
                 </>
             ) : (
-                <p>アップデートが見つかりません。</p>
+                <>
+                    <p>アップデートが見つかりません。</p>
+                    <p>{version ?? '???'}</p>
+                </>
             )}
         </div>
     );
