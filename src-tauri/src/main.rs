@@ -2,6 +2,7 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 use tauri::Manager;
+use tauri_plugin_updater::UpdaterExt;
 
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
@@ -16,16 +17,34 @@ fn main() {
         .plugin(tauri_plugin_updater::Builder::new().build())
         .invoke_handler(tauri::generate_handler![greet])
         .setup(|app| {
-            let handle = app.handle();
+            let handle = app.handle().clone();
+            let handle2 = app.handle().clone();
             handle.get_webview_window("main").unwrap().open_devtools();
 
-            // tauri::async_runtime::spawn(async move {
-            //     if let Some(update)= handle.updater_builder().endpoints(vec![""]).build().unwrap().check().await.unwrap() {
-            //         update.download(|a|{}, ||{
-            //             update.install(bytes)
-            //         })
-            //     }
-            // });
+            tauri::async_runtime::spawn(async move {
+                println!("checking...");
+                if let Some(update) = handle.updater().unwrap().check().await.unwrap() {
+                    println!("has_update...");
+
+                    if update
+                        .download_and_install(
+                            |_us, _option| {
+                                println!("chunk received");
+                            },
+                            || {
+                                println!("download finished");
+                            },
+                        )
+                        .await
+                        .is_ok()
+                    {
+                        println!("install ended...");
+                        tauri::process::restart(&handle2.env());
+                    }
+                }
+
+                tokio::time::sleep(std::time::Duration::from_secs(10)).await;
+            });
 
             Ok(())
         })
